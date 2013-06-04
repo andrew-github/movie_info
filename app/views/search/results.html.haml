@@ -1,0 +1,31 @@
+%h4 Search results:
+- if @movies.empty?
+  %span Nothing was found
+- else
+  - movies = @movies.is_a?(Array) ? @movies:[@movies]
+  %ul{:class => "unstyled"}
+    - movies.each do |movie|
+      %li{:class => "unstyled"}
+        %hr
+        %div{:class => "row"}
+          %div{:class => "span8"}
+            %div{:class => "row"}
+              %div{:class => "span8"}
+                %h4
+                  %strong= movie.original_name
+                  %span= "(#{movie.alternative_name})" unless movie.alternative_name.nil?
+                  %span{:title => "release year"}= movie.released[0,4]
+                  %span{:title => "certification type"}= " | #{movie.certification}" unless movie.certification.to_s.size.zero?
+            %div{:class => "row"}
+              %div{:class => "span2"}
+                = movie.posters.first.nil? ? image_tag('no_poster.jpg'):image_tag( movie.posters.first.url, :alt => movie.original_name )
+              %div{:class => "span6"}
+                %strong Rating:
+                = movie.rating
+                %br
+                %strong Description:
+                = movie.overview
+                %br
+                %br
+                %span
+                  = link_to 'Mode details', url_for( :action => :movie, :id => movie.id ), :class => 'btn'

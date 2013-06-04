@@ -1,0 +1,3 @@
+= form_tag( search_results_path, :method => :get, :class => 'navbar-search' ) do
+  = text_field_tag 's', params[:s].to_s, :placeholder => 'Enter movie title...', :required => 'required'
+  = submit_tag 'Find', :name => nil, :class => 'btn btn-primary reset-margin'
